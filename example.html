@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery Smooth Animations</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.3.js"></script>
+	<script type="text/javascript" src="smoothanim.js"></script>
+	
+	<script type="text/javascript">
+		(function($) {
+			var timerId = null,
+				isLeft = true;
+		
+			function left() {
+				setTimeout(function() { $('#square').animate({left: 0}, 1000, right); }, 1000);
+			}
+			
+			function right() {
+				setTimeout(function() {  }, 1000);
+			}
+			
+			function cycle() {
+				if (isLeft) {
+					$('#square').animate({left: 600}, 1000);
+				} else {
+					$('#square').animate({left: 0}, 1000);
+				}
+
+				isLeft = !isLeft;
+			}
+			
+			$(function() {
+				$('#start').click(function() {
+					if (!timerId) {
+						cycle();
+						timerId = setInterval(cycle, 2000);
+					}
+					return false;						
+				});
+				
+				$('#stop').click(function() {
+					clearInterval(timerId);
+					timerId = null;
+					
+					$('#square').stop();
+					return false;
+				});
+			});
+			
+		})(jQuery);
+	</script>
+</head>
+<body>
+	<h2>jQuery Smooth Animations</h2>
+	
+	<p>Demonstrates the proposed animation timer functionality in Firefox 4 Beta, integrated into all jQuery animations.</p>
+	
+	<p>
+		<button id="start">Start</button> <button id="stop">Stop</button>
+	</p>
+	
+	<div id="square" style="height: 200px; width: 200px; position: relative; background: #f00; top: 0; left: 0;">
+	</div>
+</body>
+</html>
